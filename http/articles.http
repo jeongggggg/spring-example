@@ -1,0 +1,10 @@
+### GET request to example server
+POST http://localhost:8080/articles
+Content-Type: application/json
+
+{
+  "title" : "blog title",
+  "content" : "blog content"
+}
+
+###
