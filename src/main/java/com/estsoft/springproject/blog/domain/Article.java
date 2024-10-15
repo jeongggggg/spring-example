@@ -20,7 +20,8 @@ public class Article {
     private String content;
 
     //Article 생성자
-    @Builder // 롬복에서 아티클에 대한 필드를 세팅할 수 있는 빌더를 만들어 준다.
+    @Builder
+    public // 롬복에서 아티클에 대한 필드를 세팅할 수 있는 빌더를 만들어 준다.
     Article(String title, String content) {
         this.title = title;
         this.content = content;
