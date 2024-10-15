@@ -3,9 +3,7 @@ package com.estsoft.springproject.blog.controller;
 import com.estsoft.springproject.blog.domain.AddArticleRequest;
 import com.estsoft.springproject.blog.domain.Article;
 import com.estsoft.springproject.blog.repository.BlogRepository;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +17,10 @@ import org.springframework.web.context.WebApplicationContext;
 
 import java.util.List;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @AutoConfigureMockMvc
 @SpringBootTest
@@ -63,6 +63,6 @@ class BlogControllerTest {
                 .andExpect(jsonPath("content").value(request.getContent()));
 
         List<Article> articleList = blogRepository.findAll();
-        org.assertj.core.api.Assertions.assertThat(articleList.size()).isEqualTo(1);
+        assertThat(articleList.size()).isEqualTo(1);
     }
 }
