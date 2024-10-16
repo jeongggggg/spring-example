@@ -1,9 +1,11 @@
 package com.estsoft.springproject.blog.service;
 
-import com.estsoft.springproject.blog.domain.AddArticleRequest;
+import com.estsoft.springproject.blog.domain.dto.AddArticleRequest;
 import com.estsoft.springproject.blog.domain.Article;
 import com.estsoft.springproject.blog.repository.BlogRepository;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class BlogService {
@@ -17,5 +19,11 @@ public class BlogService {
     public Article saveArticle(AddArticleRequest request){
         return blogRepository.save(request.toEntity()); // toEntity를 호출해주면 컨버팅 해준 형태로 세이브 메소드에 아티클 객체 형태로 넘겨줌
         // article 형태로 리턴해줄 것이기 때문에 그대로 return
+    }
+
+    // blog 게시글 조회
+    public List<Article> findAll(){
+        // List<Article> articleList = blogRepository.findAll();
+        return blogRepository.findAll();
     }
 }

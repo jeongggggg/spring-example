@@ -1,13 +1,16 @@
 package com.estsoft.springproject.blog.controller;
 
 
-import com.estsoft.springproject.blog.domain.AddArticleRequest;
+import com.estsoft.springproject.blog.domain.dto.AddArticleRequest;
 import com.estsoft.springproject.blog.domain.Article;
+import com.estsoft.springproject.blog.domain.dto.ArticleResponse;
 import com.estsoft.springproject.blog.service.BlogService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Slf4j // 로깅 어노테이션
 @RestController // REST API를 만들기 위한 RESTController 선언
@@ -35,5 +38,16 @@ public class BlogController {
                 .body(article);
 
         // RequestBody로 받으면 객체로 json안에 들어있는 각각의 속성들이 그 값에 맞게 들어간다. title, content로 정의 되어 있는 것들을 특정 값으로 파싱해주는 역할을 하는 어노테이션
+    }
+
+    // Request Mapping 조회 : HTTP METHOD ? GET
+    @GetMapping("/articles")
+    public ResponseEntity<List<ArticleResponse>> fineAll() {
+        // List<Article> articleList = service.findAll();
+        // List<ArticleResponse> 형태로 변환해서 응답으로 보내기
+        List<ArticleResponse> list = service.findAll().stream()
+                .map(article -> new ArticleResponse(article.getId(), article.getTitle(), article.getContent()))
+                .toList();
+        return ResponseEntity.ok(list);
     }
 }

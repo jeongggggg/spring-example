@@ -1,5 +1,6 @@
-package com.estsoft.springproject.blog.domain;
+package com.estsoft.springproject.blog.domain.dto;
 
+import com.estsoft.springproject.blog.domain.Article;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

@@ -1,6 +1,6 @@
 package com.estsoft.springproject.blog.controller;
 
-import com.estsoft.springproject.blog.domain.AddArticleRequest;
+import com.estsoft.springproject.blog.domain.dto.AddArticleRequest;
 import com.estsoft.springproject.blog.domain.Article;
 import com.estsoft.springproject.blog.repository.BlogRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
