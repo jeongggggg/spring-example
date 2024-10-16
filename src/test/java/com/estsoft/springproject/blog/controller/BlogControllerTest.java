@@ -2,6 +2,7 @@ package com.estsoft.springproject.blog.controller;
 
 import com.estsoft.springproject.blog.domain.dto.AddArticleRequest;
 import com.estsoft.springproject.blog.domain.Article;
+import com.estsoft.springproject.blog.domain.dto.ArticleResponse;
 import com.estsoft.springproject.blog.repository.BlogRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
@@ -18,6 +19,7 @@ import org.springframework.web.context.WebApplicationContext;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -82,5 +84,23 @@ class BlogControllerTest {
         resultActions.andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].title").value(article.getTitle()))
                 .andExpect(jsonPath("$[0].content").value(article.getContent()));
+    }
+
+    // 블로그 단건 조회 API 테스트 : data insert (id=1), GET /articles/1
+    @Test
+    public void findOne() throws Exception {
+        // given : data insert
+        Article article = blogRepository.save(new Article("blog title", "blog content"));
+        Long id = article.getId();
+
+        // when : API 호출
+        ResultActions resultActions = mockMvc.perform(get("/articles/{id}", id)
+                .accept(MediaType.APPLICATION_JSON));
+
+        // then : API 호출 결과 검증(given 절에서 추가한 데이터가 그대로 json의 형태로 넘어오는지)
+        resultActions.andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").value(id))
+                .andExpect(jsonPath("$.title").value(article.getTitle()))
+                .andExpect(jsonPath("$.content").value(article.getContent()));
     }
 }
