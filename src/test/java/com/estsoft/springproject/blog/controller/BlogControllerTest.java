@@ -72,7 +72,7 @@ class BlogControllerTest {
     @Test
     public void findAll() throws Exception {
         // given : 조회 API에 필요한 값 세팅
-        Article article = blogRepository.save(new Article("title", "content")); // 값 article 객체 저장되고 저장된 결과가 article에 전달
+        Article article = blogRepository.save(new Article("title", "content"));
 
         // when : 조회 API
         ResultActions resultActions = mockMvc.perform(get("/articles")
