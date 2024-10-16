@@ -35,4 +35,9 @@ public class BlogService {
         return blogRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("id is not found" + id));
     }
+
+    // blog 게시글 삭제 API (id)
+    public void deleteBy(Long id){
+        blogRepository.deleteById(id); // pk 값을 찾아서 삭제할 수 있도록
+    }
 }

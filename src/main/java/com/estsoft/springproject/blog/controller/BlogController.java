@@ -64,4 +64,12 @@ public class BlogController {
         // Article => ArticleResponse
         return ResponseEntity.ok(article.convert());
     }
+
+    // DELETE / articles/{id}
+    //@RequestMapping(method = RequestMethod.DELETE, value = "/articles/{id}")
+    @DeleteMapping("/articles/{id}")
+    public ResponseEntity<Void> deleteById(@PathVariable Long id) {
+        service.deleteBy(id);
+        return ResponseEntity.ok().build();
+    }
 }
