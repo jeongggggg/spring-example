@@ -31,4 +31,11 @@ public class Article {
     public ArticleResponse convert(){
         return new ArticleResponse(id, title, content);
     }
+
+    public void update(String title, String content){
+//        if(!title.isBlank()) { this.title = title; }
+//        if(!content.isBlank()) { this.title = title; }
+        this.title = title;
+        this.content = content;
+    }
 }

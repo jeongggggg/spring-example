@@ -2,8 +2,10 @@ package com.estsoft.springproject.blog.service;
 
 import com.estsoft.springproject.blog.domain.dto.AddArticleRequest;
 import com.estsoft.springproject.blog.domain.Article;
+import com.estsoft.springproject.blog.domain.dto.UpdateArticleRequest;
 import com.estsoft.springproject.blog.repository.BlogRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -39,5 +41,12 @@ public class BlogService {
     // blog 게시글 삭제 API (id)
     public void deleteBy(Long id){
         blogRepository.deleteById(id); // pk 값을 찾아서 삭제할 수 있도록
+    }
+
+    @Transactional
+    public Article update(Long id, UpdateArticleRequest request){
+        Article article = findById(id);  // 수정하고자 하는 row (article 객체) 가져오기
+        article.update(request.getTitle(),request.getContent());
+        return article;
     }
 }
