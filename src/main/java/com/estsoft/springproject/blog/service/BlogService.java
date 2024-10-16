@@ -33,7 +33,7 @@ public class BlogService {
         //return blogRepository.findById(id).orElse(new Article()); 다른 방법
         // return blogRepository.findById(id).orElseGet(Article::new); 다른 방법
         return blogRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("id is not found" + id));
+                .orElseThrow(() -> new IllegalArgumentException("id is not found : " + id));
     }
 
     // blog 게시글 삭제 API (id)

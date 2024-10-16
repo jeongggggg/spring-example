@@ -60,7 +60,7 @@ public class BlogController {
 //        return ResponseEntity.ok(article);
 //    }
     public ResponseEntity<ArticleResponse> findById(@PathVariable Long id) {
-        Article article = service.findById(id);
+        Article article = service.findById(id); // Exception(5xx server error) => 4xx Status Code
         // Article => ArticleResponse
         return ResponseEntity.ok(article.convert());
     }
@@ -71,5 +71,10 @@ public class BlogController {
     public ResponseEntity<Void> deleteById(@PathVariable Long id) {
         service.deleteBy(id);
         return ResponseEntity.ok().build();
+    }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<String> HandlerIllegalArgumentException(IllegalArgumentException e) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage()); // reason : ""
     }
 }
