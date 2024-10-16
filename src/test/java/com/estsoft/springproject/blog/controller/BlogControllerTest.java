@@ -3,8 +3,10 @@ package com.estsoft.springproject.blog.controller;
 import com.estsoft.springproject.blog.domain.dto.AddArticleRequest;
 import com.estsoft.springproject.blog.domain.Article;
 import com.estsoft.springproject.blog.domain.dto.ArticleResponse;
+import com.estsoft.springproject.blog.domain.dto.UpdateArticleRequest;
 import com.estsoft.springproject.blog.repository.BlogRepository;
 import com.estsoft.springproject.blog.service.BlogService;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -135,5 +137,42 @@ class BlogControllerTest {
         resultActions.andExpect(status().isOk());
         List<Article> articleList = blogRepository.findAll();
         assertThat(articleList).isEmpty();
+    }
+
+    // PUT /articles/{id} body(json content) 요청
+    @Test
+    public void updateArticle() throws Exception {
+        Article article = blogRepository.save(new Article("blog title", "blog content"));
+        Long id = article.getId();
+
+        // 수정 데이터 -> json
+        UpdateArticleRequest request = new UpdateArticleRequest("변경 제목", "변경 내용");
+        String updateJsonContent = objectMapper.writeValueAsString(request);
+
+        ResultActions resultActions = mockMvc.perform(put("/articles/{id}", id)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(updateJsonContent)
+        );
+        resultActions.andExpect(status().isOk())
+                .andExpect(jsonPath("$.title").value(request.getTitle()));
+    }
+
+    // 수정 API 호출시 예외 발생했을 경우(수정하려는 id 존재하지 않음) => status code 검증, Exception 검증
+    @Test
+    public void updateArticleException() throws Exception {
+        // given : id, requestBody
+        Long notExistsId = 1000L;
+        UpdateArticleRequest request = new UpdateArticleRequest("title","content");
+        String requestBody = objectMapper.writeValueAsString(request);
+
+        // when : 수정 API 호출(/articles/{id}, requestBody)
+        ResultActions resultActions = mockMvc.perform(put("/articles/{id}", notExistsId)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(requestBody));
+
+        // then 400 Bad Request
+        resultActions.andExpect(status().isBadRequest());
+        assertThrows(IllegalArgumentException.class, () -> blogService.update(notExistsId, request));
+        assertThrows(IllegalArgumentException.class, () -> blogService.findById(notExistsId));
     }
 }
