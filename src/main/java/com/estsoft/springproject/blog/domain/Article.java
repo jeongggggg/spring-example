@@ -1,5 +1,6 @@
 package com.estsoft.springproject.blog.domain;
 
+import com.estsoft.springproject.blog.domain.dto.ArticleResponse;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
@@ -25,5 +26,9 @@ public class Article {
     Article(String title, String content) {
         this.title = title;
         this.content = content;
+    }
+
+    public ArticleResponse convert(){
+        return new ArticleResponse(id, title, content);
     }
 }

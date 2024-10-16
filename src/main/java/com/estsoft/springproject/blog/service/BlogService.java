@@ -26,4 +26,13 @@ public class BlogService {
         // List<Article> articleList = blogRepository.findAll();
         return blogRepository.findAll();
     }
+
+    // blog 게시글 단건 조회
+    public Article findById(Long id){
+        // Optional.orElse
+        //return blogRepository.findById(id).orElse(new Article()); 다른 방법
+        // return blogRepository.findById(id).orElseGet(Article::new); 다른 방법
+        return blogRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("id is not found" + id));
+    }
 }
