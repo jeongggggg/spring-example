@@ -4,6 +4,7 @@ import com.estsoft.springproject.blog.domain.dto.AddArticleRequest;
 import com.estsoft.springproject.blog.domain.Article;
 import com.estsoft.springproject.blog.domain.dto.ArticleResponse;
 import com.estsoft.springproject.blog.repository.BlogRepository;
+import com.estsoft.springproject.blog.service.BlogService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -21,6 +22,7 @@ import org.springframework.web.context.WebApplicationContext;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -42,11 +44,13 @@ class BlogControllerTest {
     @Autowired
     private BlogRepository blogRepository;
 
+    @Autowired
+    private BlogService blogService;
+
     @BeforeEach
     public void setUp(){
         mockMvc = MockMvcBuilders.webAppContextSetup(context).build();
         blogRepository.deleteAll();
-
     }
 
     // POST /articles API 테스트
@@ -105,6 +109,19 @@ class BlogControllerTest {
                 .andExpect(jsonPath("$.id").value(id))
                 .andExpect(jsonPath("$.title").value(article.getTitle()))
                 .andExpect(jsonPath("$.content").value(article.getContent()));
+    }
+
+    // 단건 조회 API - id에 해당하는 자원이 없을 경우(4xx)
+    @Test
+    public void findOneException() throws Exception {
+        // when : API 호출
+        ResultActions resultActions = mockMvc.perform(get("/articles/{id}", 1L)
+                .accept(MediaType.APPLICATION_JSON));
+
+        // then : Exception 검증, resultActions STATUS  CODE 검증
+        resultActions.andExpect(status().isBadRequest());
+
+        assertThrows(IllegalArgumentException.class, () -> blogService.findById(1L));
     }
 
     // 글 정보 insert, 삭제 api 호출, (STATUS CODE 검증), repository.findAll()
