@@ -6,6 +6,7 @@ import com.estsoft.springproject.blog.service.BlogService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
@@ -28,5 +29,14 @@ public class BlogPageController {
         model.addAttribute("articles", list);
 
         return "articleList"; // articleList.html
+    }
+
+    // GET /articles/{id} 상세페이지 리턴
+    @GetMapping("/articles/{id}")
+    public String showDetails(@PathVariable Long id, Model model){
+        Article article = blogService.findById(id);
+        model.addAttribute("article", new ArticleViewResponse(article));
+
+        return "article"; // article.html
     }
 }
