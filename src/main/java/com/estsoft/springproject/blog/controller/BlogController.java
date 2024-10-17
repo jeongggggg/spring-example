@@ -15,6 +15,7 @@ import java.util.List;
 
 @Slf4j // 로깅 어노테이션
 @RestController // REST API를 만들기 위한 RESTController 선언
+@RequestMapping("/api")
 public class BlogController {
     private final BlogService service;
 
