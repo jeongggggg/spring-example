@@ -5,9 +5,7 @@ import com.estsoft.springproject.book.domain.BookDTO;
 import com.estsoft.springproject.book.service.BookService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -41,5 +39,16 @@ public class BookController {
         Book book = bookService.findBy(id);
         model.addAttribute("book", new BookDTO(book));
         return "bookDetail";
+    }
+
+    // 책 정보 생성 (id, name, author 정보 받아서 DB에 저장)
+    // 저장된 책 정보가 바로 노출될 수 있도록 화면 구성 (bookManagement.html)
+    @PostMapping
+    public String addBook(@RequestParam String id,
+                          @RequestParam String name,
+                          @RequestParam String author) {
+
+       bookService.saveOne(new Book(id, name, author));
+       return "redirect:/books";   // GET /books 3xx
     }
 }

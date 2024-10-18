@@ -23,4 +23,8 @@ public class BookService {
     public Book findBy(String id){
         return bookRepository.findById(id).orElse(new Book());
     }
+
+    public Book saveOne(Book book) {
+        return bookRepository.save(book);
+    }
 }

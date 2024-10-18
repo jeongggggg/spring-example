@@ -1,8 +1,10 @@
 package com.estsoft.springproject.book.domain;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Getter
+@AllArgsConstructor
 public class BookDTO {
     private String id;
     private String name;
