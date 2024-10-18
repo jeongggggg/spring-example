@@ -37,18 +37,18 @@ public class FilterConfig {
         return filter; // 설정한 필터 반환
     }
 
-    // 세 번째 필터를 등록하는 메서드
-    @Bean
-    public FilterRegistrationBean<Filter> thirdFilter() {
-        // FilterRegistrationBean 객체 생성
-        FilterRegistrationBean<Filter> filter = new FilterRegistrationBean<>();
-
-        // 필터 인스턴스를 설정
-        filter.setFilter(new ThirdFilter());
-        // 필터가 적용될 URL 패턴을 설정
-        filter.addUrlPatterns("/books");
-        filter.setOrder(3); // 필터 실행 순서 설정
-
-        return filter; // 설정한 필터 반환
-    }
+//    // 세 번째 필터를 등록하는 메서드
+//    @Bean
+//    public FilterRegistrationBean<Filter> thirdFilter() {
+//        // FilterRegistrationBean 객체 생성
+//        FilterRegistrationBean<Filter> filter = new FilterRegistrationBean<>();
+//
+//        // 필터 인스턴스를 설정
+//        filter.setFilter(new ThirdFilter());
+//        // 필터가 적용될 URL 패턴을 설정
+//        filter.addUrlPatterns("/books");
+//        filter.setOrder(3); // 필터 실행 순서 설정
+//
+//        return filter; // 설정한 필터 반환
+//    }
 }
