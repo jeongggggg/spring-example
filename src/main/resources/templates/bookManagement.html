@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="kr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>book</title>
+</head>
+<body>
+<!-- 등록된 책 전체 목록 -->
+<h3>등록된 책 목록</h3>
+<ul>
+    <li th:each="book: ${bookList}">
+        <a th:href="@{/books/{id}(id = ${book.id})}"><span th:text="${book.id}"></span></a>
+    </li>
+</ul>
+</body>
+</html>
