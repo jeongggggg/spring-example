@@ -83,8 +83,8 @@ public class BlogController {
         return ResponseEntity.ok(updateArticle.convert());
     }
 
-    @ExceptionHandler(IllegalArgumentException.class)
-    public ResponseEntity<String> HandlerIllegalArgumentException(IllegalArgumentException e) {
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage()); // reason : ""
-    }
+//    @ExceptionHandler(IllegalArgumentException.class)
+//    private ResponseEntity<String> HandlerIllegalArgumentException(IllegalArgumentException e) {
+//        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage()); // reason : ""
+//    }
 }
