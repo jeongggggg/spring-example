@@ -15,9 +15,12 @@ public class BookService {
         this.bookRepository = bookRepository;
     }
 
-    // Book 조회
     public List<Book> findAll(){
         return bookRepository.findAll(Sort.by("id")); // 오름차순
         // select * from Book order by id;
+    }
+
+    public Book findBy(String id){
+        return bookRepository.findById(id).orElse(new Book());
     }
 }
