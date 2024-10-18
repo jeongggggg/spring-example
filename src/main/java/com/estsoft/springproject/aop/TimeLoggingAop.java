@@ -3,12 +3,12 @@ package com.estsoft.springproject.aop;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
-import org.springframework.context.annotation.ComponentScan;
+import org.springframework.stereotype.Component;
 
 @Aspect
-@ComponentScan
+@Component
 public class TimeLoggingAop {
-    // 특정 method() 호출했을 때, method의 수행 시간 측정
+    // 특정 method() 호출했을때, method의 수행 시간 측정
     @Around("execution(* com.estsoft.springproject.book..*(..))")
     public Object execute(ProceedingJoinPoint joinPoint) throws Throwable {
         long startTimeMs = System.currentTimeMillis();
@@ -21,4 +21,5 @@ public class TimeLoggingAop {
             System.out.println("END: " + joinPoint.toString()+ " " + timeMs + "ms");
         }
     }
+
 }
