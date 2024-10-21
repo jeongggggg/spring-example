@@ -37,9 +37,8 @@ public class WebSecurityConfiguration {
         return httpSecurity.authorizeHttpRequests(
                         // 인증 및 인가 처리 설정, 람다 표현식으로 메소드 체이닝
                         custom -> custom.requestMatchers("/login", "/signup", "/user").permitAll() // 로그인, 회원가입, 사용자 경로는 모두 허용
+                                .anyRequest().authenticated() // 나머지 모든 요청은 인증 필요
                 )
-                // .anyRequest().authenticated() // 나머지 모든 요청은 인증 필요
-                // .and()
 
                 // 폼 기반 로그인 설정
                 .formLogin(custom -> custom.loginPage("/login") // 커스텀 로그인 페이지 설정
