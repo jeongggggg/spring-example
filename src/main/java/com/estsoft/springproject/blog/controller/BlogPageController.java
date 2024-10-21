@@ -3,7 +3,9 @@ package com.estsoft.springproject.blog.controller;
 import com.estsoft.springproject.blog.domain.Article;
 import com.estsoft.springproject.blog.domain.dto.ArticleViewResponse;
 import com.estsoft.springproject.blog.service.BlogService;
+import com.estsoft.springproject.user.domain.Users;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -42,10 +44,10 @@ public class BlogPageController {
 
     // GET /articles/{id} -> 게시글 상세 페이지 리턴
     @GetMapping("/articles/{id}")
-    public String showDetails(@PathVariable Long id, Model model) {
+    public String showDetails(@PathVariable Long id, Model model, @AuthenticationPrincipal Users users) {
         // 현재 인증된 사용자 정보를 가져옴
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        // Principal principal = (Principal) authentication.getPrincipal(); // 주석 처리된 코드
+        // Users users = (Users) authentication.getPrincipal();
 
         // 게시글 ID로 게시글 조회
         Article article = blogService.findById(id);
