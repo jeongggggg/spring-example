@@ -15,5 +15,9 @@ public class Members {
     @ManyToOne
     @JoinColumn(name = "TEAM_ID") // FK
     private Team team; // 일대다 단방향 연관관계 매핑
+
+    @OneToOne
+    @Column(name = "LOCKER_ID")
+    private Locker locker;
 }
 
