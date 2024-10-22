@@ -6,6 +6,10 @@ import com.estsoft.springproject.blog.domain.Article;
 import com.estsoft.springproject.blog.domain.dto.ArticleResponse;
 import com.estsoft.springproject.blog.domain.dto.UpdateArticleRequest;
 import com.estsoft.springproject.blog.service.BlogService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -26,6 +30,10 @@ public class BlogController {
     }
     // RequestMapping (특정 url   POST/articles) 글을 작성해서  db에 저장하고 싶기 때문에 post
     // @RequestMapping(method = RequestMethod.POST) => PostMapping 과 같음
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "100", description = "요청에 성공했습니다.", content = @Content(mediaType = "application/json"))
+    })
+    @Operation(summary = "블로그 전체 목록 보기", description = "블로그 메인 화면에서 보여주는 전체 목록")
     @PostMapping("/articles")
     public ResponseEntity<ArticleResponse> writeArticle(@RequestBody AddArticleRequest request){
         Article article = service.saveArticle(request);
