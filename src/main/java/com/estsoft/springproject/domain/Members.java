@@ -10,6 +10,7 @@ public class Members {
     @Column(name = "MEMBER_ID")
     private Long id;
 
+    @Column
     private String username;
 
     @ManyToOne
@@ -17,7 +18,7 @@ public class Members {
     private Team team; // 일대다 단방향 연관관계 매핑
 
     @OneToOne
-    @Column(name = "LOCKER_ID")
+    @JoinColumn(name = "LOCKER_ID")
     private Locker locker;
 }
 
