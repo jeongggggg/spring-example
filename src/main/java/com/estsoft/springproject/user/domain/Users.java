@@ -37,7 +37,9 @@ public class Users implements UserDetails {
     public Collection<? extends GrantedAuthority> getAuthorities() {
         // 사용자의 권한 정보를 넣어줌. 컨트롤러 단에서 해당 권한이 있을 경우에만 처리해주면 됨.
         // 예를 들어, "새싹", "주니어", "중니어", "시니어", "관리자"와 같이 등급에 따라 보이는 화면을 다르게 권한을 정의할 수도 있음.
-        return List.of(new SimpleGrantedAuthority("user"));
+        // ROLE_ADMIN 권한 추가
+        return List.of(new SimpleGrantedAuthority("user"), new SimpleGrantedAuthority("ROLE_ADMIN")
+        );
     }
 
     // 아래 메소드들은 인증과 관련된 메소드들

@@ -37,6 +37,7 @@ public class WebSecurityConfiguration {
         return httpSecurity.authorizeHttpRequests(
                         // 인증 및 인가 처리 설정, 람다 표현식으로 메소드 체이닝
                         custom -> custom.requestMatchers("/login", "/signup", "/user").permitAll() // 로그인, 회원가입, 사용자 경로는 모두 허용
+                                .requestMatchers("/articles/**").hasRole("ADMIN") // get 요청이 들어왔을 때 요청한 사용자의 권한을 체크(ROLE_ADMIN)
                                 .anyRequest().authenticated() // 나머지 모든 요청은 인증 필요
                 )
 

@@ -27,6 +27,7 @@ public class BlogPageController {
     // GET /articles -> 게시글 목록 페이지 리턴
     @GetMapping("/articles")
     public String showArticle(Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         // 전체 게시글 리스트 조회
         List<Article> articleList = blogService.findAll();
 
