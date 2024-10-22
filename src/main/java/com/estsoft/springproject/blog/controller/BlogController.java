@@ -7,6 +7,7 @@ import com.estsoft.springproject.blog.domain.dto.ArticleResponse;
 import com.estsoft.springproject.blog.domain.dto.UpdateArticleRequest;
 import com.estsoft.springproject.blog.service.BlogService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -31,7 +32,7 @@ public class BlogController {
     // RequestMapping (특정 url   POST/articles) 글을 작성해서  db에 저장하고 싶기 때문에 post
     // @RequestMapping(method = RequestMethod.POST) => PostMapping 과 같음
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "100", description = "요청에 성공했습니다.", content = @Content(mediaType = "application/json"))
+            @ApiResponse(responseCode = "200", description = "요청에 성공했습니다.", content = @Content(mediaType = "application/json"))
     })
     @Operation(summary = "블로그 전체 목록 보기", description = "블로그 메인 화면에서 보여주는 전체 목록")
     @PostMapping("/articles")
@@ -53,6 +54,11 @@ public class BlogController {
     }
 
     // Request Mapping 조회 : HTTP METHOD ? GET
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "요청에 성공했습니다.", content = @Content(mediaType = "application/json"))
+    })
+    @Operation(summary = "Request Mapping 조회", description = "Request Mapping 조회")
+    @Parameter(name = "id", description = "블로그 글 ID", example = "45")
     @GetMapping("/articles")
     public ResponseEntity<List<ArticleResponse>> fineAll() {
         // List<Article> articleList = service.findAll();
@@ -66,6 +72,11 @@ public class BlogController {
     }
 
     // 단건 조회 API (Request mapping)
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "요청에 성공했습니다.", content = @Content(mediaType = "application/json"))
+    })
+    @Operation(summary = "블로그 단건 조회", description = "블로그 메인 화면에서 보여주는 단건 목록")
+    @Parameter(name = "id", description = "블로그 글 ID", example = "45")
     @GetMapping("/articles/{id}")
 //    public ResponseEntity<Article> findById(@RequestParam Long id) {
 //        Article article = service.findById(id);
@@ -79,6 +90,11 @@ public class BlogController {
 
     // DELETE / articles/{id}
     //@RequestMapping(method = RequestMethod.DELETE, value = "/articles/{id}")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "요청에 성공했습니다.", content = @Content(mediaType = "application/json"))
+    })
+    @Operation(summary = "블로그 글 삭제", description = "블로그 글 삭제")
+    @Parameter(name = "id", description = "블로그 글 ID", example = "45")
     @DeleteMapping("/articles/{id}")
     public ResponseEntity<Void> deleteById(@PathVariable Long id) {
         service.deleteBy(id);
@@ -86,6 +102,11 @@ public class BlogController {
     }
 
     // PUT /articles/{id} 수정 API body
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "요청에 성공했습니다.", content = @Content(mediaType = "application/json"))
+    })
+    @Operation(summary = "블로그 글 수정", description = "블로그 글 수정")
+    @Parameter(name = "id", description = "블로그 글 ID", example = "45")
     @PutMapping("/articles/{id}")
     public ResponseEntity<ArticleResponse> updateById(@PathVariable Long id,
                                                       @RequestBody UpdateArticleRequest request) {
