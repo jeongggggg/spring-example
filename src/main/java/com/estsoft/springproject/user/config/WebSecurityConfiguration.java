@@ -28,7 +28,7 @@ public class WebSecurityConfiguration {
         // H2 콘솔과 /static/** 경로를 시큐리티 필터에서 제외
         return webSecurity -> webSecurity.ignoring()
                 .requestMatchers(toH2Console()) // /h2-console
-                .requestMatchers("/static/**");
+                .requestMatchers("/static/**","/swagger-ui/**", "/v3/api-docs/**", "/swagger-ui.html");
     }
 
     // 요청에 대한 보안 설정
