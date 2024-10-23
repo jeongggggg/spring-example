@@ -12,6 +12,6 @@ public class Locker {
     @Column(name = "name")
     private String name;
 
-    @OneToOne(mappedBy = "locker")
-    private Members members; // 1:1 양방향 연관관계 매핑
+//    @OneToOne(mappedBy = "locker")
+//    private Members members; // 1:1 양방향 연관관계 매핑
 }
