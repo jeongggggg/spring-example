@@ -2,12 +2,15 @@ package com.estsoft.springproject.blog.service;
 
 import com.estsoft.springproject.blog.domain.dto.AddArticleRequest;
 import com.estsoft.springproject.blog.domain.Article;
+import com.estsoft.springproject.blog.domain.dto.ArticleWithCommentsResponseDTO;
+import com.estsoft.springproject.blog.domain.dto.CommentResponseDTO;
 import com.estsoft.springproject.blog.domain.dto.UpdateArticleRequest;
 import com.estsoft.springproject.blog.repository.BlogRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class BlogService {
@@ -49,4 +52,44 @@ public class BlogService {
         article.update(request.getTitle(),request.getContent());
         return article;
     }
+
+    public ArticleWithCommentsResponseDTO getArticleWithComments(Long articleId) {
+        Article article = blogRepository.findById(articleId).orElseThrow(() -> new IllegalArgumentException("Article not found"));
+
+        // 댓글 리스트 변환
+        List<CommentResponseDTO> commentResponseDTOs = article.getComments().stream()
+                .map(CommentResponseDTO::new)
+                .collect(Collectors.toList());
+
+        return new ArticleWithCommentsResponseDTO(
+                article.getId(),
+                article.getTitle(),
+                article.getContent(),
+                article.getCreatedAt(),
+                article.getUpdatedAt(),
+                commentResponseDTOs
+        );
+    }
+
+    public ArticleWithCommentsResponseDTO findArticleWithComments(Long articleId) {
+        // articleId로 게시글을 조회, 없을 경우 예외 발생
+        Article article = blogRepository.findById(articleId)
+                .orElseThrow(() -> new IllegalArgumentException("Article not found with id: " + articleId));
+
+        // 게시글에 연결된 댓글들을 DTO로 변환
+        List<CommentResponseDTO> commentResponseDTOs = article.getComments().stream()
+                .map(CommentResponseDTO::new)  // 각 Comment를 CommentResponseDTO로 변환
+                .collect(Collectors.toList());
+
+        // ArticleWithCommentsResponseDTO로 반환
+        return new ArticleWithCommentsResponseDTO(
+                article.getId(),
+                article.getTitle(),
+                article.getContent(),
+                article.getCreatedAt(),
+                article.getUpdatedAt(),
+                commentResponseDTOs
+        );
+    }
+
 }

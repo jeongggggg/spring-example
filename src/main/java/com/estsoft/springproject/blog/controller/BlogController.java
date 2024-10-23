@@ -4,6 +4,7 @@ package com.estsoft.springproject.blog.controller;
 import com.estsoft.springproject.blog.domain.dto.AddArticleRequest;
 import com.estsoft.springproject.blog.domain.Article;
 import com.estsoft.springproject.blog.domain.dto.ArticleResponse;
+import com.estsoft.springproject.blog.domain.dto.ArticleWithCommentsResponseDTO;
 import com.estsoft.springproject.blog.domain.dto.UpdateArticleRequest;
 import com.estsoft.springproject.blog.service.BlogService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -118,4 +119,10 @@ public class BlogController {
 //    private ResponseEntity<String> HandlerIllegalArgumentException(IllegalArgumentException e) {
 //        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage()); // reason : ""
 //    }
+
+    @GetMapping("/articles/{articleId}/comments")
+    public ResponseEntity<ArticleWithCommentsResponseDTO> getArticleWithComments(@PathVariable Long articleId) {
+        ArticleWithCommentsResponseDTO response = service.findArticleWithComments(articleId);
+        return ResponseEntity.ok(response);
+    }
 }

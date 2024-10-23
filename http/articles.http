@@ -49,3 +49,6 @@ Content-Type: application/json
 
 ### 댓글 삭제 API
 DELETE http://localhost:8080/api/comments/{{commentId}}
+
+### 게시글과 댓글 정보를 한번에 조회하는 API (하나의 게시글의 댓글(리스트) 조회)
+GET http://localhost:8080/api/articles/{{articleId}}/comments
