@@ -45,4 +45,8 @@ public class Comment {
     public void updateBody(String body) {
         this.body = body;
     }
+
+    public void updateCommentBody(String body) {
+        this.body = body;
+    }
 }

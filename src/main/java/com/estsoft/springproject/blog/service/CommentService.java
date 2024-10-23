@@ -28,4 +28,12 @@ public class CommentService {
         Optional<Comment> optionalComment = commentRepository.findById(commentId);
         return optionalComment.orElse(new Comment());
     }
+
+    public Comment update(Long commentId, CommentRequestDTO request) {
+        Comment comment = commentRepository.findById(commentId).orElseThrow();
+        comment.updateCommentBody(request.getBody());
+
+        return commentRepository.save(comment);
+    }
+
 }

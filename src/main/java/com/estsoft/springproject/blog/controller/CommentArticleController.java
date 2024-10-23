@@ -3,6 +3,7 @@ package com.estsoft.springproject.blog.controller;
 import com.estsoft.springproject.blog.domain.Comment;
 import com.estsoft.springproject.blog.domain.dto.CommentRequestDTO;
 import com.estsoft.springproject.blog.domain.dto.CommentResponseDTO;
+import com.estsoft.springproject.blog.domain.dto.UpdateCommentRequest;
 import com.estsoft.springproject.blog.service.CommentService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,5 +29,12 @@ public class CommentArticleController {
     public ResponseEntity<CommentResponseDTO> selectCommentById(@PathVariable Long commentId) {
         Comment comment = commentService.findComment(commentId);
         return ResponseEntity.ok(new CommentResponseDTO(comment));
+    }
+
+    @PutMapping("/api/comments/{commentId}")
+    public ResponseEntity<CommentResponseDTO> updateCommentById(@PathVariable Long commentId, @RequestBody CommentRequestDTO request){
+        Comment updated = commentService.update(commentId, request);
+
+        return ResponseEntity.ok(new CommentResponseDTO(updated));
     }
 }
