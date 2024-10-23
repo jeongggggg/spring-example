@@ -3,13 +3,17 @@ package com.estsoft.springproject.blog.domain;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
 
 @Getter
+@Setter
 @NoArgsConstructor
 @Entity
+@EntityListeners(AuditingEntityListener.class)
 public class Comment {
     // comment_id: Primary Key
     @Id
@@ -41,9 +45,4 @@ public class Comment {
     public void updateBody(String body) {
         this.body = body;
     }
-
-//    // 연관된 Article 설정 메서드
-//    public void setArticle(Article article) {
-//        this.article = article;
-//    }
 }

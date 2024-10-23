@@ -1,10 +1,13 @@
 package com.estsoft.springproject.blog.domain.dto;
 
+import com.estsoft.springproject.blog.domain.Article;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -19,4 +22,22 @@ public class ArticleResponse {
 
     @Schema(description = "블로그 내용", type = "String")
     private String content;
+
+    private LocalDateTime createdAt;
+
+    private LocalDateTime updatedAt;
+
+    public ArticleResponse(Article article) {
+       id = article.getId();
+       title = article.getTitle();
+       content = article.getContent();
+       createdAt = article.getCreatedAt();
+       updatedAt = article.getUpdatedAt();
+    }
+
+    public ArticleResponse(Long id, String title, String content) {
+        this.id = id;
+        this.title = title;
+        this.content = content;
+    }
 }
