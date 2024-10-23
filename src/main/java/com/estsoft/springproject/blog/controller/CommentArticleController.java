@@ -24,4 +24,9 @@ public class CommentArticleController {
         return ResponseEntity.status(HttpStatus.CREATED).body(new CommentResponseDTO(comment));
     }
 
+    @GetMapping("/api/comments/{commentId}")
+    public ResponseEntity<CommentResponseDTO> selectCommentById(@PathVariable Long commentId) {
+        Comment comment = commentService.findComment(commentId);
+        return ResponseEntity.ok(new CommentResponseDTO(comment));
+    }
 }
