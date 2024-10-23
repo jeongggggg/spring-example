@@ -37,4 +37,10 @@ public class CommentArticleController {
 
         return ResponseEntity.ok(new CommentResponseDTO(updated));
     }
+
+    @DeleteMapping("/api/comments/{commentId}")
+    public ResponseEntity<Void> deleteCommentById(@PathVariable Long commentId) {
+        commentService.delete(commentId);
+        return ResponseEntity.ok().build();
+    }
 }

@@ -1,6 +1,7 @@
 package com.estsoft.springproject.blog.domain;
 
 import com.estsoft.springproject.blog.domain.dto.ArticleResponse;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
@@ -30,10 +31,12 @@ public class Article {
     private String content;
 
     @CreatedDate
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     @Column
     private LocalDateTime createdAt; // created_at
 
     @LastModifiedDate
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     @Column
     private LocalDateTime updatedAt; // updated_at
 
