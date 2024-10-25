@@ -36,7 +36,7 @@ Content-Type: application/json
 }
 
 ### 댓글 단건  조회 API
-@commentId=7
+@commentId=1
 GET http://localhost:8080/api/comments/{{commentId}}
 
 ### 댓글 수정 API
