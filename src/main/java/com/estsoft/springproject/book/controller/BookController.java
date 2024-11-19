@@ -20,7 +20,7 @@ public class BookController {
         this.bookService = bookService; // BookService 인스턴스를 주입받아 필드에 저장
     }
 
-    // 책(전체) 조회
+    // 책(전체) 목록 조회 GET /books
     @GetMapping
     public String showAll(Model model) {
         // 모든 책 정보를 가져와 BookDTO 리스트로 변환
