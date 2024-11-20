@@ -31,8 +31,8 @@ public class ArticleResponse {
        id = article.getId();
        title = article.getTitle();
        content = article.getContent();
-       createdAt = article.getCreatedAt();
-       updatedAt = article.getUpdatedAt();
+       createdAt = article.getCreatedAt() != null ? article.getCreatedAt() : LocalDateTime.parse("");
+       updatedAt = article.getUpdatedAt() != null ? article.getUpdatedAt() : LocalDateTime.parse("");
     }
 
     public ArticleResponse(Long id, String title, String content) {
