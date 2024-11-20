@@ -10,7 +10,7 @@ public class DummyCoupon implements ICoupon{
 
         @Override
         public boolean isValid() {
-            return false;
+            return true;
         }
 
         @Override

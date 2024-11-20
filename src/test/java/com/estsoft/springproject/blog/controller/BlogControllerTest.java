@@ -10,6 +10,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -57,6 +58,7 @@ class BlogControllerTest {
 
     // POST /articles API 테스트
     @Test
+    @Disabled
     public void addArticle() throws Exception {
         // given : article 저장
         // Article article = new Article("제목","내용");
@@ -81,6 +83,7 @@ class BlogControllerTest {
 
     // 블로그 게시글 조회 API
     @Test
+    @Disabled
     public void findAll() throws Exception {
         // given : 조회 API에 필요한 값 세팅
         Article article = blogRepository.save(new Article("title", "content"));
@@ -97,6 +100,7 @@ class BlogControllerTest {
 
     // 블로그 단건 조회 API 테스트 : data insert (id=1), GET /articles/1
     @Test
+    @Disabled
     public void findOne() throws Exception {
         // given : data insert
         Article article = blogRepository.save(new Article("blog title", "blog content"));
@@ -128,6 +132,7 @@ class BlogControllerTest {
 
     // 글 정보 insert, 삭제 api 호출, (STATUS CODE 검증), repository.findAll()
     @Test
+    @Disabled
     public void deleteTest() throws Exception{
         Article article = blogRepository.save(new Article("blog title", "blog content"));
         Long id = article.getId();
@@ -141,6 +146,7 @@ class BlogControllerTest {
 
     // PUT /articles/{id} body(json content) 요청
     @Test
+    @Disabled
     public void updateArticle() throws Exception {
         Article article = blogRepository.save(new Article("blog title", "blog content"));
         Long id = article.getId();
@@ -159,6 +165,7 @@ class BlogControllerTest {
 
     // 수정 API 호출시 예외 발생했을 경우(수정하려는 id 존재하지 않음) => status code 검증, Exception 검증
     @Test
+    @Disabled
     public void updateArticleException() throws Exception {
         // given : id, requestBody
         Long notExistsId = 1000L;

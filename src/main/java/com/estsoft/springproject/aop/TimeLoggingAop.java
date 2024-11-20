@@ -1,5 +1,6 @@
 package com.estsoft.springproject.aop;
 
+import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Component;
  */
 @Aspect
 @Component
+@Slf4j
 public class TimeLoggingAop {
 
     /**
@@ -23,7 +25,8 @@ public class TimeLoggingAop {
     @Around("execution(* com.estsoft.springproject.book..*(..))")
     public Object execute(ProceedingJoinPoint joinPoint) throws Throwable {
         long startTimeMs = System.currentTimeMillis();  // 시작 시간 기록
-        System.out.println("START: " + joinPoint.toString());
+        // System.out.println("START: " + joinPoint.toString());
+        log.info("START: {}", joinPoint.toString());
         try {
             // 원래의 메서드 실행
             return joinPoint.proceed();
@@ -31,7 +34,8 @@ public class TimeLoggingAop {
             // 메서드 종료 후 수행 시간 계산 및 출력
             long finishTimeMs = System.currentTimeMillis();
             long timeMs = finishTimeMs - startTimeMs;
-            System.out.println("END: " + joinPoint.toString() + " " + timeMs + "ms");
+            // System.out.println("END: " + joinPoint.toString() + " " + timeMs + "ms");
+            log.info("END: {} {}ms", joinPoint, timeMs);
         }
     }
 
