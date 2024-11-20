@@ -1,4 +1,4 @@
-package com.estsoft.springproject.coupon;
+package com.estsoft.springproject.user.coupon;
 
 public interface ICoupon {
     public String getName();                // 쿠폰 이름

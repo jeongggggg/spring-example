@@ -1,5 +1,8 @@
 package com.estsoft.springproject.coupon;
 
+import com.estsoft.springproject.user.coupon.DummyCoupon;
+import com.estsoft.springproject.user.coupon.ICoupon;
+import com.estsoft.springproject.user.coupon.User;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 

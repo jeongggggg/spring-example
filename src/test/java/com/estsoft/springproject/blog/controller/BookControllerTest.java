@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
@@ -17,8 +18,7 @@ import org.springframework.web.context.WebApplicationContext;
 import static org.hamcrest.Matchers.hasSize;
 import static org.mockito.Mockito.doReturn;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -28,11 +28,12 @@ class BookControllerTest {
 
     @Autowired
     private WebApplicationContext webApplicationContext;
+
     @Autowired
     private BookService bookService;
 
     @BeforeEach
-    public void setUp() {
+    public void mockMvcSetup() {
         this.mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
     }
 
@@ -43,12 +44,14 @@ class BookControllerTest {
 //        doReturn(bookList).when(bookService.findAll());
 
         // when :
-        ResultActions resultActions = mockMvc.perform(get("/books"));
+        ResultActions resultActions = mockMvc.perform(get("/books")
+                .accept(MediaType.APPLICATION_JSON));
 
-        // then :
-        resultActions.andExpect(status().isOk())
-                .andExpect(MockMvcResultMatchers.view().name("bookManagement")) // (Matchers.is("bookManagement")));
-                .andExpect(model().attribute("bookList", hasSize(2)))
+        // then : response model, view 검증
+        resultActions.andExpect(status().is2xxSuccessful())
+                .andExpect(view().name("bookManagement"))
+                .andExpect(model().attributeExists("bookList"))
+                .andExpect(model().attribute("bookList", Matchers.hasSize(2)))
         ;
     }
 }
