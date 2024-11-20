@@ -58,7 +58,6 @@ class BlogControllerTest {
 
     // POST /articles API 테스트
     @Test
-    @Disabled
     public void addArticle() throws Exception {
         // given : article 저장
         // Article article = new Article("제목","내용");
@@ -68,7 +67,7 @@ class BlogControllerTest {
         String json = objectMapper.writeValueAsString(request);
 
         // when : POST /articles API 호출
-        ResultActions resultActions = mockMvc.perform(post("/articles")
+        ResultActions resultActions = mockMvc.perform(post("/api/articles")
                 .contentType(MediaType.APPLICATION_JSON) // Content-Type을 JSON으로 설정
                 .content(json)); // JSON 데이터를 요청의 본문에 추가
 
@@ -83,13 +82,12 @@ class BlogControllerTest {
 
     // 블로그 게시글 조회 API
     @Test
-    @Disabled
     public void findAll() throws Exception {
         // given : 조회 API에 필요한 값 세팅
         Article article = blogRepository.save(new Article("title", "content"));
 
         // when : 조회 API
-        ResultActions resultActions = mockMvc.perform(get("/articles")
+        ResultActions resultActions = mockMvc.perform(get("/api/articles")
                 .accept(MediaType.APPLICATION_JSON));
 
         // then : API 호출 결과 검증 json
@@ -100,14 +98,13 @@ class BlogControllerTest {
 
     // 블로그 단건 조회 API 테스트 : data insert (id=1), GET /articles/1
     @Test
-    @Disabled
     public void findOne() throws Exception {
         // given : data insert
         Article article = blogRepository.save(new Article("blog title", "blog content"));
         Long id = article.getId();
 
         // when : API 호출
-        ResultActions resultActions = mockMvc.perform(get("/articles/{id}", id)
+        ResultActions resultActions = mockMvc.perform(get("/api/articles/{id}", id)
                 .accept(MediaType.APPLICATION_JSON));
 
         // then : API 호출 결과 검증(given 절에서 추가한 데이터가 그대로 json의 형태로 넘어오는지)
@@ -121,7 +118,7 @@ class BlogControllerTest {
     @Test
     public void findOneException() throws Exception {
         // when : API 호출
-        ResultActions resultActions = mockMvc.perform(get("/articles/{id}", 1L)
+        ResultActions resultActions = mockMvc.perform(get("/api/articles/{id}", 1L)
                 .accept(MediaType.APPLICATION_JSON));
 
         // then : Exception 검증, resultActions STATUS  CODE 검증
@@ -132,12 +129,11 @@ class BlogControllerTest {
 
     // 글 정보 insert, 삭제 api 호출, (STATUS CODE 검증), repository.findAll()
     @Test
-    @Disabled
     public void deleteTest() throws Exception{
         Article article = blogRepository.save(new Article("blog title", "blog content"));
         Long id = article.getId();
 
-        ResultActions resultActions = mockMvc.perform(delete("/articles/{id}", id));
+        ResultActions resultActions = mockMvc.perform(delete("/api/articles/{id}", id));
 
         resultActions.andExpect(status().isOk());
         List<Article> articleList = blogRepository.findAll();
@@ -146,7 +142,6 @@ class BlogControllerTest {
 
     // PUT /articles/{id} body(json content) 요청
     @Test
-    @Disabled
     public void updateArticle() throws Exception {
         Article article = blogRepository.save(new Article("blog title", "blog content"));
         Long id = article.getId();
@@ -155,7 +150,7 @@ class BlogControllerTest {
         UpdateArticleRequest request = new UpdateArticleRequest("변경 제목", "변경 내용");
         String updateJsonContent = objectMapper.writeValueAsString(request);
 
-        ResultActions resultActions = mockMvc.perform(put("/articles/{id}", id)
+        ResultActions resultActions = mockMvc.perform(put("/api/articles/{id}", id)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(updateJsonContent)
         );
@@ -165,7 +160,6 @@ class BlogControllerTest {
 
     // 수정 API 호출시 예외 발생했을 경우(수정하려는 id 존재하지 않음) => status code 검증, Exception 검증
     @Test
-    @Disabled
     public void updateArticleException() throws Exception {
         // given : id, requestBody
         Long notExistsId = 1000L;
@@ -173,7 +167,7 @@ class BlogControllerTest {
         String requestBody = objectMapper.writeValueAsString(request);
 
         // when : 수정 API 호출(/articles/{id}, requestBody)
-        ResultActions resultActions = mockMvc.perform(put("/articles/{id}", notExistsId)
+        ResultActions resultActions = mockMvc.perform(put("/api/articles/{id}", notExistsId)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(requestBody));
 
