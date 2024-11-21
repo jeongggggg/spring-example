@@ -8,7 +8,7 @@ import java.util.List;
 public class User {
     private List<ICoupon> coupons;
 
-    public User(String id) {
+    public User() {
         coupons = new ArrayList<>();
     }
 

@@ -25,6 +25,6 @@ public class DummyCoupon implements ICoupon{
 
         @Override
         public void doExpire() {
-
+            throw new UnsupportedOperationException("Not implemented yet.");
         }
 }

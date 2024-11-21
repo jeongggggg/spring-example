@@ -12,7 +12,7 @@ public class UserCouponTest {
 
     @Test
     public void testAddCoupon(){
-        User user = new User("area00");
+        User user = new User();
         assertEquals(0, user.getTotalCouponCount()); // 쿠폰 수령 전
 
         ICoupon coupon = new DummyCoupon(); // dummy 쿠폰을 만들어서 사용
@@ -23,7 +23,7 @@ public class UserCouponTest {
 
     @Test
     public void 쿠폰이_유효할_경우에만_유저에게_발급한다(){
-        User user = new User("area00");
+        User user = new User();
         assertEquals(0, user.getTotalCouponCount()); // 쿠폰 수령 전
 
         ICoupon coupon = Mockito.mock(ICoupon.class); // mock 객체 - 행위 정의 가능
