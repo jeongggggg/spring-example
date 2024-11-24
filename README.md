@@ -36,3 +36,18 @@
 
 ### Spring MVC 
 - 동적 페이지 구현
+
+### Docker
+- Docker 배포 실습
+- 
+
+### Test Code
+- JUnit 테스트
+- TDD
+- Mock을 이용한 Test code 작성
+- Sonarqube
+
+### CI/CD
+- Github Actions 사용
+- Github 으로 빌드 및 테스트 자동화
+- GitHub Actions를 활용하여 AWS CodeDeploy 연동
