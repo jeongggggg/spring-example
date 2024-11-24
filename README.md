@@ -39,7 +39,6 @@
 
 ### Docker
 - Docker 배포 실습
-- 
 
 ### Test Code
 - JUnit 테스트
